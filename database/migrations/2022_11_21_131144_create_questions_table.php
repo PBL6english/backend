@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('C');
             $table->string('D');
             $table->string('answer');
+            $table->string('image');
             $table->bigInteger('exam_id')->unsigned()->index();
             $table->foreign('exam_id')->references('id')->on('online_exams')->onDelete('cascade');
             $table->timestamps();
