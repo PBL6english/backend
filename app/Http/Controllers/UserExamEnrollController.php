@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User_exam_enroll;
 use App\Http\Requests\StoreUser_exam_enrollRequest;
 use App\Http\Requests\UpdateUser_exam_enrollRequest;
+use Illuminate\Http\Request;
 
 class UserExamEnrollController extends Controller
 {
@@ -15,7 +16,7 @@ class UserExamEnrollController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(User_exam_enroll::all(),200);
     }
 
     /**
@@ -23,9 +24,26 @@ class UserExamEnrollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        try {
+            //code...
+            $exam_enroll_exist = User_exam_enroll::where([
+                ['user_id','=',$request->user_id],
+                ['exam_id','=',$request->exam_id],
+            ])->get();
+            if(!$exam_enroll_exist->isEmpty()){
+                return response()->json(['message'=>'you allready enrolled this exam'], 200);
+            }
+            $exam_enroll = new User_exam_enroll();
+            $exam_enroll->user_id = $request->user_id;
+            $exam_enroll->exam_id = $request->exam_id;
+            $exam_enroll->status = $request->status;
+            $exam_enroll->save();
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['message'=>'exam not found'], 404);
+        }
     }
 
     /**
@@ -79,8 +97,14 @@ class UserExamEnrollController extends Controller
      * @param  \App\Models\User_exam_enroll  $user_exam_enroll
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User_exam_enroll $user_exam_enroll)
+    public function destroy(Request $request)
     {
-        //
+        $exam_enroll = User_exam_enroll::where([
+            ['user_id','=',$request->user_id],
+            ['exam_id','=',$request->exam_id],
+        ]);
+        $exam_enroll->delete();
+        $all = User_exam_enroll::all();
+        return response()->json($all);
     }
 }
