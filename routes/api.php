@@ -22,11 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/addquestion',[QuestionController::class,'create']);
 Route::get('/questions',[QuestionController::class,'index']);
-Route::get('/exams',[OnlineExamController::class,'index']);
-Route::get('/addexam',[OnlineExamController::class,'create']);
 Route::get('/questiosns_by_exam/{id}',[QuestionController::class,'questionByExam']);
 Route::post('/update_question/{id}',[QuestionController::class,'update']);
-Route::put('/update_exam/{id}',[OnlineExamController::class,'update']);
 Route::delete('/delete_question/{id}',[QuestionController::class,'destroy']);
 Route::delete('/delete_all_question_by_exam/{id}',[QuestionController::class,'destroy_all_in_exam']);
+
+Route::get('/exams',[OnlineExamController::class,'index']);
+Route::get('/addexam',[OnlineExamController::class,'create']);
+Route::put('/update_exam/{id}',[OnlineExamController::class,'update']);
 Route::delete('/delete_exam/{id}',[OnlineExamController::class,'destroy']);
+Route::get('/show_exam/{id}',[OnlineExamController::class,'show']);
