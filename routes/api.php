@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OnlineExamController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\UserExamEnrollController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,7 @@ Route::get('/addexam',[OnlineExamController::class,'create']);
 Route::put('/update_exam/{id}',[OnlineExamController::class,'update']);
 Route::delete('/delete_exam/{id}',[OnlineExamController::class,'destroy']);
 Route::get('/show_exam/{id}',[OnlineExamController::class,'show']);
+
+Route::get('/Enroll_exam_list',[UserExamEnrollController::class,'index']);
+Route::get('/Enroll_exam',[UserExamEnrollController::class,'create']);
+Route::delete('/delete_enroll_exam',[UserExamEnrollController::class,'destroy']);
