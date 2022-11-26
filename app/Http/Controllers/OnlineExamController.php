@@ -80,7 +80,8 @@ class OnlineExamController extends Controller
         $exam->delete();
         $allexam = Online_exam::all();
         
-        return response()->json($allexam);
+        return OnlineExamResource::collection($allexam);
+
     }
     /**
      * Store a newly created resource in storage.
@@ -88,7 +89,7 @@ class OnlineExamController extends Controller
      * @param  \App\Http\Requests\StoreOnline_examRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreOnline_examRequest $request)
+    public function store(Online_exam $online_exam)
     {
         //
     }
@@ -99,9 +100,16 @@ class OnlineExamController extends Controller
      * @param  \App\Models\Online_exam  $online_exam
      * @return \Illuminate\Http\Response
      */
-    public function show(Online_exam $online_exam)
+    public function show($id)
     {
-        //
+        try {
+            //code...
+            $exam = Online_exam::findOrFail($id);
+            return new OnlineExamResource($exam);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['message'=>'exam not found'], 404);
+        }
     }
 
     /**
