@@ -104,6 +104,18 @@ class OnlineExamController extends Controller
     {
         try {
             //code...
+            $exam = Online_exam::findOrFail($id);
+            return new OnlineExamResource($exam);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['message'=>'exam not found'], 404);
+        }
+    }
+
+    public function ExamsByUser($id)
+    {
+        try {
+            //code...
             $exam = Online_exam::where('user_id','=',$id)->get();
             return OnlineExamResource::collection($exam);
         } catch (\Throwable $th) {

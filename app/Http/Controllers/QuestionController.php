@@ -106,6 +106,17 @@ class QuestionController extends Controller
         }
     }
 
+    public function questions_by_exam($id){
+        try {
+            //code...
+            $questions = Question::where('exam_id',$id)->get();
+            return QuestionResource::collection($questions);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['message'=>'questions not found'], 404);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
