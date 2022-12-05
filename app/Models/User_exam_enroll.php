@@ -10,7 +10,7 @@ class User_exam_enroll extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'quest_id',
         'exam_id',
         'status',
     ];

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('user_exam_enrolls', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('quest_id')->unsigned()->index();
+            $table->foreign('quest_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('exam_id')->unsigned()->index();
             $table->foreign('exam_id')->references('id')->on('online_exams')->onDelete('cascade');
             $table->boolean('status')->nullable()->default(false);

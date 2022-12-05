@@ -29,14 +29,14 @@ class UserExamEnrollController extends Controller
         try {
             //code...
             $exam_enroll_exist = User_exam_enroll::where([
-                ['user_id','=',$request->user_id],
+                ['quest_id','=',$request->quest_id],
                 ['exam_id','=',$request->exam_id],
             ])->get();
             if(!$exam_enroll_exist->isEmpty()){
                 return response()->json(['message'=>'you allready enrolled this exam'], 200);
             }
             $exam_enroll = new User_exam_enroll();
-            $exam_enroll->user_id = $request->user_id;
+            $exam_enroll->quest_id = $request->quest_id;
             $exam_enroll->exam_id = $request->exam_id;
             $exam_enroll->status = $request->status;
             $exam_enroll->save();
@@ -100,7 +100,7 @@ class UserExamEnrollController extends Controller
     public function destroy(Request $request)
     {
         $exam_enroll = User_exam_enroll::where([
-            ['user_id','=',$request->user_id],
+            ['quest_id','=',$request->quest_id],
             ['exam_id','=',$request->exam_id],
         ]);
         $exam_enroll->delete();
