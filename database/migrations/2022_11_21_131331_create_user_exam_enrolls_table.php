@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('exam_id')->unsigned()->index();
             $table->foreign('exam_id')->references('id')->on('online_exams')->onDelete('cascade');
             $table->boolean('status')->nullable()->default(false);
+            $table->unique(['quest_id','exam_id']);
             $table->timestamps();
         });
     }

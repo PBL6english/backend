@@ -21,8 +21,10 @@ return new class extends Migration
             $table->foreign('exam_id')->references('id')->on('online_exams')->onDelete('cascade');
             $table->bigInteger('question_id')->unsigned()->index();
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->string('user_answer');
-            $table->integer('score_status');
+            $table->string('user_answer')->nullable();
+            $table->string('correct_answer');
+            $table->integer('score_status')->default(0);
+            $table->unique(['user_id','exam_id','question_id']);
             $table->timestamps();
         });
     }

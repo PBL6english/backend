@@ -18,4 +18,9 @@ class Online_exam extends Model
         'duration',
         'user_id',
     ];
+
+    public function User_exam_question_answer()
+    {
+        return $this->hasMany('App\Models\User_exam_question_answer','exam_id','id');
+    }
 }
