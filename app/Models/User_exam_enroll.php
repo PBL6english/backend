@@ -14,4 +14,9 @@ class User_exam_enroll extends Model
         'exam_id',
         'status',
     ];
+
+    public function User_exam_question_answer()
+    {
+        return $this->hasMany('App\Models\User_exam_question_answer','enroll_id','id');
+    }
 }

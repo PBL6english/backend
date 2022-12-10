@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User_exam_question_answer;
 use App\Http\Requests\StoreUser_exam_question_answerRequest;
 use App\Http\Requests\UpdateUser_exam_question_answerRequest;
+use App\Models\Question;
+use App\Models\User_exam_enroll;
+use Illuminate\Http\Request;
 
 class UserExamQuestionAnswerController extends Controller
 {
@@ -13,6 +16,56 @@ class UserExamQuestionAnswerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function submit_exam(Request $request){
+        $exam_enroll = User_exam_enroll::where(
+            [
+                ['quest_id','=',$request->user_id],
+                ['exam_id','=',$request->exam_id],
+            ]
+        )->first();
+        $exam_enroll->status = 1;
+        $exam_enroll->save();
+        // $exam_enroll->User_exam_question_answer()->get();
+        // $questions = Question::where('exam_id', $exam_enroll->exam_id)->get();
+        $i = 0;
+        $useranswers = User_exam_question_answer::where(
+            [
+                ['user_id','=',$exam_enroll->user_id],
+                ['exam_id','=',$exam_enroll->exam_id],
+            ]
+        )->get();
+        foreach($useranswers as $useranswer){
+            // $useranswer = new User_exam_question_answer;
+            if(count($request['answer']) == $i){
+                break;
+            }
+            else{
+                $useranswer->user_answer = $request['answer'][$i];
+                $useranswer->score_status = 0;
+                // $useranswer->update(
+                //     [
+                //         ['user_answer' => $request['answer'][$i]],
+                //         // ['score_status' => 0]
+                //     ]
+                // );
+                if(strcmp($request['answer'][$i],$useranswer->correct_answer) === 0){
+                    $useranswer->score_status = 1;
+                }
+                $i++;
+                // $useranswer->correct_answer = $question->answer;
+                $useranswer->save();
+            }
+        }
+        $i = 0;
+        $useranswers = User_exam_question_answer::where(
+            [
+                ['user_id','=',$exam_enroll->user_id],
+                ['exam_id','=',$exam_enroll->exam_id],
+            ]
+        )->get();
+        $exam_enroll->save();
+        return response()->json($useranswers);
+    }
     public function index()
     {
         //
