@@ -109,8 +109,8 @@ class QuestionController extends Controller
     public function questions_by_exam($id){
         try {
             //code...
-            $questions = Question::where('exam_id',$id)->get();
-            return QuestionResource::collection($questions);
+            $questions = Question::where('exam_id',$id)->paginate(5);
+            return response()->json($questions);
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json(['message'=>'questions not found'], 404);

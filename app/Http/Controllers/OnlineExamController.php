@@ -17,7 +17,8 @@ class OnlineExamController extends Controller
      */
     public function index()
     {
-        return OnlineExamResource::collection(Online_exam::all());
+        // return OnlineExamResource::collection(Online_exam::all());
+        return response()->json(Online_exam::paginate(12),200);
     }
 
     /**

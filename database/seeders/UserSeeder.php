@@ -20,13 +20,11 @@ class UserSeeder extends Seeder
                 'name' => "admin",
                 'email' => "admin@gmail.com",
                 'password' => "123456",
-                'gender' => 0,
             ],
             [
                 'name' => "admin2",
                 'email' => "admin2@gmail.com",
                 'password' => "123456",
-                'gender' => 0,
             ]
         ]);
     }

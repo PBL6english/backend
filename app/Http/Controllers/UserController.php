@@ -17,9 +17,8 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->gender = $request->gender;
         $user->save();
-        return new UserResource($user);
+        return response()->json($user);
     }
 
     public function login(Request $request){
@@ -35,7 +34,7 @@ class UserController extends Controller
         if(!$user || !Hash::check($request->password, $user->password)){
             return response()->json(["error"=>"Email or password is not matched"], 404);
         }
-        return new UserResource($user);
+        return response()->json($user);
     }
 
     public function change_password(Request $request){
