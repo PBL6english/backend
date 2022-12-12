@@ -87,7 +87,7 @@ class UserExamEnrollController extends Controller
         $questions = Question::where('exam_id', $exam_enroll->exam_id)->get();
         foreach($questions as $question){
             $useranswer = new User_exam_question_answer;
-            $useranswer->user_id = $exam_enroll->user_id;
+            $useranswer->user_id = $exam_enroll->quest_id;
             $useranswer->exam_id = $exam_enroll->exam_id;
             $useranswer->enroll_id = $exam_enroll->id;
             $useranswer->question_id = $question->id;
@@ -143,7 +143,7 @@ class UserExamEnrollController extends Controller
 
     public function viewallbyuser($id)
     {
-        $exam_enroll = User_exam_enroll::where('quest_id',$id)->first();
+        $exam_enroll = User_exam_enroll::where('quest_id',$id)->get();
         return response()->json($exam_enroll);
     }
 
