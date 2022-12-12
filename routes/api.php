@@ -63,4 +63,5 @@ Route::controller(UserExamEnrollController::class)->group(function () {
 
 Route::controller(UserExamQuestionAnswerController::class)->group(function () {
     Route::get('/submit_exam',[UserExamQuestionAnswerController::class,'submit_exam']);
+    Route::get('/getResultOfExamByUser',[UserExamQuestionAnswerController::class,'ViewResultOfExamByUser']);
 });
