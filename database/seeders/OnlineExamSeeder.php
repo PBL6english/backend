@@ -19,7 +19,7 @@ class OnlineExamSeeder extends Seeder
             [
                 'title' => "Ielts 2022 level 3",
                 'total_question' => 10,
-                'duration' => "10",
+                'duration' => "5",
                 'user_id' => 1,
             ]
         ]);
