@@ -43,4 +43,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function exam(){
+        return $this->hasMany('App\Models\Online_exam','user_id','id');
+    }
 }
