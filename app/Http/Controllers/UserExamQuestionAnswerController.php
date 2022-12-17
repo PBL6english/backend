@@ -25,6 +25,28 @@ class UserExamQuestionAnswerController extends Controller
         )->first();
         $exam_enroll->status = 1;
         $exam_enroll->save();
+
+        $exam_enroll->User_exam_question_answer()->delete();
+        $questions = Question::where('exam_id', $exam_enroll->exam_id)->get();
+        foreach($questions as $question){
+            $useranswer = new User_exam_question_answer;
+            $useranswer->user_id = $exam_enroll->quest_id;
+            $useranswer->exam_id = $exam_enroll->exam_id;
+            $useranswer->enroll_id = $exam_enroll->id;
+            $useranswer->question_id = $question->id;
+            $useranswer->correct_answer = "A";
+            if($question->B == $question->answer){
+                $useranswer->correct_answer = "B";
+            }
+            else if($question->C == $question->answer){
+                $useranswer->correct_answer = "C";
+            }
+            else if($question->D == $question->answer){
+                $useranswer->correct_answer = "D";
+            }
+            $useranswer->save();
+        }
+
         $exam_enroll->User_exam_question_answer()->get();
         $questions = Question::where('exam_id', $exam_enroll->exam_id)->get();
         $i = 0;

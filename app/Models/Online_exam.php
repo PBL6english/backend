@@ -23,4 +23,8 @@ class Online_exam extends Model
     {
         return $this->hasMany('App\Models\User_exam_question_answer','exam_id','id');
     }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User','user_id','id');
+    }
 }
